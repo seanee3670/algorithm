@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class IncreasingSubsequence {
+    // Often called as LIS(Longest Increasing Subsequence)
 
     static int[] arr;
     static Integer[] dp;
@@ -12,36 +13,41 @@ public class IncreasingSubsequence {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 
-        int N = Integer.valueOf(br.readLine());
-        arr = new int[N + 1];
-        dp = new Integer[N + 1];
+        int numOfElements = Integer.valueOf(br.readLine());
+        arr = new int[numOfElements];
+        dp = new Integer[numOfElements];
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        for (int i = 1; i < N + 1; i++) {
+        for (int i = 0; i < numOfElements; i++) {
             arr[i] = Integer.valueOf(st.nextToken());
         }
 
-        arr[0] = Integer.MAX_VALUE;
-        dp[0] = 0;
-        dp[1] = 1;
+        for (int i = 0; i < numOfElements; i++) {
+            countIncreasingSubsequence(i);
+        }
 
-        System.out.println(countIncreasingSubsequence(N));
+        // find max from dp[]
+        int max = dp[0];
+        for (int i = 1; i < numOfElements; i++) {
+            max = Math.max(dp[i], max);
+        }
+
+        System.out.println(max);
     }
 
-    public static int countIncreasingSubsequence (int N){
-        if (N <= 1) {
-            return dp[N];
-        }
-
+    public static int countIncreasingSubsequence (int N) {
         if (dp[N] == null) {
-            for (int i = N - 1; i > 0; i--) {
-                // 비교해야하는디
-            dp[N] = Math.max(countIncreasingSubsequence(i), countIncreasingSubsequence(i - 1));
+            // 모든 수열은 최소 1이므로.
+            dp[N] = 1;
+
+            for (int i = N - 1; i >= 0; i--) { // N == 0 이라면 실행 x
+                if (arr[N] > arr[i]) {
+                    dp[N] = Math.max(dp[N], countIncreasingSubsequence(i) + 1); // 크면 + 1 해야하므로
+                }
             }
         }
-
-        return dp[N] += (arr[N] > arr[N - 1]) ? 1 : 0;
+        return dp[N];
     }
 
 }
