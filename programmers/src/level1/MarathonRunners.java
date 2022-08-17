@@ -1,22 +1,32 @@
 import java.util.Arrays;
 
-class MarathonRunners {
+class Solution {
     public String solution(String[] participant, String[] completion) {
-        StringBuilder sb = new StringBuilder();
+        String answer = "";
 
-        for (String winner : completion) {
-            if (!Arrays.asList(participant).contains(winner)) {
-                sb.append(winner + " ");
+        for (String runner : participant) {
+            boolean hasFinished = false;
+
+            // for (String winner : completion) {
+            //     if (runner.equals(winner)) {
+            //         hasFinished = true;
+            //         winner = null;
+            //         break;
+            //     }
+            // }
+
+            for (int i = 0; i < completion.length; i++) {
+                if (runner.equals(completion[i])) {
+                    hasFinished = true;
+                    completion[i] = null;
+                    break;
+                }
+            }
+
+            if (hasFinished == false) {
+                return runner;
             }
         }
-
-        return sb.toString();
+        return answer;
     }
-
-    public static void main(String[] args) {
-        String[] participant = {"leo", "kiki", "eden"};
-        String[] completion = {"eden", "kiki"};
-
-        System.out.println(solution(participant, completion));
-
 }
