@@ -2,29 +2,16 @@ import java.util.Arrays;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        String answer = "";
+        Arrays.sort(participant);
+        Arrays.sort(completion);
 
-        for (String runner : participant) {
-            boolean hasFinished = false;
+        int pLen = participant.length - 1;
 
-            // for (String winner : completion) {
-            //     if (runner.equals(winner)) {
-            //         hasFinished = true;
-            //         winner = null;
-            //         break;
-            //     }
-            // }
+        String answer = participant[pLen];
 
-            for (int i = 0; i < completion.length; i++) {
-                if (runner.equals(completion[i])) {
-                    hasFinished = true;
-                    completion[i] = null;
-                    break;
-                }
-            }
-
-            if (hasFinished == false) {
-                return runner;
+        for (int i = 0; i < pLen; i++) {
+            if (!participant[i].equals(completion[i])) {
+                return participant[i];
             }
         }
         return answer;
