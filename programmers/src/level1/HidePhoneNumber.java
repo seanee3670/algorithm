@@ -1,5 +1,6 @@
 class Solution {
     public String solution(String phone_number) {
+        // phone_number는 길이 4 이상, 20이하인 문자열입니다.
 
         int lenPhoneNum = phone_number.length();
 
