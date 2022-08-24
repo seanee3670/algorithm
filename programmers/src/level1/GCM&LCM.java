@@ -3,26 +3,29 @@ class Solution {
 
         int[] answer = new int[2];
 
-        int small = n < m ? n : m;
-        int big =  m > n ? m : n;
+        int big = m;
+        int small = n;
 
-        // 최대공약수
-        for (int i = small; i > 0; i--) {
-            if (big % i == 0) {
-                answer[0] = i;
-                break;
-            }
+        if (n > m) { // m 을 더 큰 수로.
+            big = n;
+            small = m;
         }
 
-        // 최소공배수
-        for (int i = big; i <= big * small; i += big) {
-            if (i % n == 0) {
-                answer[1] = i;
+        while (true) {
+            if (big % small == 0) {
+                answer[0] = small;
                 break;
             }
+            int temp = big % small;
+
+            big = small;
+            small = temp;
 
         }
+
+        answer[1] = n * m / answer[0];
 
         return answer;
     }
+
 }
