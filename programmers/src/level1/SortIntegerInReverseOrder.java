@@ -1,25 +1,14 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+public class ReverseInt {
+    String res = "";
+    public int reverseInt(int n){
+        res = "";
+        Integer.toString(n).chars().sorted().forEach(c -> res = Character.valueOf((char)c) + res);
+        return Integer.parseInt(res);
+    }
 
-class Solution {
-    public long solution(long n) {
-
-        ArrayList<Long> arrList = new ArrayList<>();
-
-        while(n > 0) {
-            arrList.add(n % 10);
-            n /= 10;
-        }
-
-        Collections.sort(arrList);
-        Iterator<Long> iter = arrList.iterator();
-
-        Long answer = 0L;
-        for (int digit = 1; iter.hasNext(); digit *= 10) {
-            answer += iter.next() * digit;
-        }
-
-        return answer;
+    // 아래는 테스트로 출력해 보기 위한 코드입니다.
+    public static void  main(String[] args){
+        ReverseInt ri = new ReverseInt();
+        System.out.println(ri.reverseInt(118372));
     }
 }
