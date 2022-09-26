@@ -1,19 +1,12 @@
+import java.util.*;
+
 class Solution {
     public int solution(int[][] sizes) {
 
-        int maxLongerSide = 0;
-        int maxShorterSide = 0;
-
-        for (int i = 0; i < sizes.length; i++) {
-            int longerSide = Math.max(sizes[i][0], sizes[i][1]);
-            int shorterSide = Math.min(sizes[i][0], sizes[i][1]);
-
-            maxLongerSide = Math.max(maxLongerSide, longerSide);
-            maxShorterSide = Math.max(maxShorterSide, shorterSide);
-        }
-
-        return maxLongerSide * maxShorterSide;
-
+        return Arrays.stream(sizes).reduce((a, b) -> new int[] {
+                Math.max(Math.max(a[0], a[1]), Math.max(b[0], b[1])),
+                Math.max(Math.min(a[0], a[1]), Math.min(b[0], b[1]))
+        }).map(it -> it[0] * it[1]).get();
 
     }
 }
